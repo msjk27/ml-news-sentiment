@@ -1,4 +1,7 @@
 __pycache__/
 *.pyc
+data/raw/
+data/processed/
+data/external/
+config/config.json
 .env
-venv/
