@@ -1,17 +1,30 @@
 #!/usr/bin/env python3
-from src.config.config import NEWS_API_URL, API_KEY
+from src.config.config import NEWS_API_URL
+import pandas as pd
 import requests
 
 # Crawling finance news from NewsApi
-def fetch_news_info(params: dict[str,str|int]) :
-    
+def fetch_news_info(params: dict[str,str|int]) -> pd.DataFrame :
+
     response = requests.get(NEWS_API_URL, params = params)
 
+    records = []
     if response.status_code == 200:
+
         data = response.json()
-        titles = [article['title'] for article in data.get('articles', [])]
-        return titles
+        articles = data.get('articles', [])
+
+        records = []
+
+        for article in articles:
+            record = {
+                'title': article.get('title'),
+                'date': pd.to_datetime(article.get('publishedAt')).date()
+            }
+            print(record['date'])
+            records.append(record)
+
+        return pd.DataFrame(records)
 
     else:
-        print(f"Error: {response.status_code}")
-        return []
+        return pd.DataFrame(columns=['title', 'date'])
