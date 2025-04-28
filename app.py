@@ -1,5 +1,5 @@
 from src.crawling.news_api_fetcher import fetch_news_info
-from src.preprocessing.clean_text import clean_text  
+from src.preprocessing.clean_text import clean_text, lemmatize_text
 from src.config import API_KEY
 
 params = {
@@ -21,8 +21,7 @@ def main():
 
     return titles,cleaned_titles
 
+# a,b = main()
+# print(a[0:5])
+# print(b[0:5])
 
-
-a, b = main()
-print (a[0])
-print(b[0])
