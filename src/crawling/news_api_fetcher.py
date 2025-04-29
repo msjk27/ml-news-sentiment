@@ -19,9 +19,9 @@ def fetch_news_info(params: dict[str,str|int]) -> pd.DataFrame :
         for article in articles:
             record = {
                 'title': article.get('title'),
-                'date': pd.to_datetime(article.get('publishedAt')).date()
+                'date': pd.to_datetime(article.get('publishedAt'))
             }
-            print(record['date'])
+
             records.append(record)
 
         return pd.DataFrame(records)
